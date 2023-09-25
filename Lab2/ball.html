@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+
+    <style type="text/css">
+      body {
+          background-color: white;
+      }
+      canvas{
+        margin: 10px;
+        border: 5px solid purple;
+        border-radius: 20px;
+    }
+    </style>
+
+  </head>
+
+  <body>
+    <h1>Dominic Arthur</h1>
+    <canvas id="canvas-for-ball" width="400px" height="400px"></canvas>
+
+    <script type="text/javascript">
+      // Gets a handle to the element with id canvasOne.
+      var canvas = document.getElementById("canvas-for-ball");
+      // Get a 2D context for the canvas.
+      var ctx = canvas.getContext("2d");
+      
+      // The vertical location of the ball.
+      var y = 10;
+      var yspeed = 5;
+      var x = 10;
+      var xspeed =5;
+      // A function to repeat every time the animation loops.
+      function repeatme() {
+        // Draw the ball (stroked, not filled).
+        ctx.beginPath();
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.arc(x, y, 10, 0, 2 * Math.PI);
+        ctx.stroke();
+        // Update the y location.
+        y += yspeed;
+        if(y >= canvas.height){
+            console.log("Hit the bottom of the frame");
+            yspeed = -5;
+        }
+        else if(y <= 10){
+            console.log("Hit the top of the frame");
+            yspeed += 10;
+        }
+        x += xspeed;
+        if(x >= canvas.width){
+            console.log("Hit the side of the frame");
+            xspeed = -5;
+        }
+        else if(x <= 0){
+            xspeed += 10;
+        }
+        window.requestAnimationFrame(repeatme);
+      }
+      
+      // Get the animation going.
+      repeatme();
+    </script>
+
+  </body>
+
+</html>

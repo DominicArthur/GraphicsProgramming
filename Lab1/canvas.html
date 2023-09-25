@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+
+    <style type="text/css">
+	canvas{
+        margin: 10px;
+        border: 5px solid black;
+    }
+    </style>
+
+  </head>
+
+  <body>
+
+    <canvas id="canvasOne"></canvas>
+
+    <script type="text/javascript">
+		// Gets a handle to the element with id canvasOne.
+		var c = document.getElementById("canvasOne");
+
+		// Set the canvas up for drawing in 2D.
+		var ctx = c.getContext("2d");
+
+		// Set the fill colour to bright red.
+	
+        
+		// Create a filled rectangle 
+		ctx.beginPath();
+        ctx.fillText("Dom Arthur",100,10);       
+        ctx.fillStyle = "red";
+        ctx.fillRect(20, 20, 250, 120,0.5);
+        ctx.fillStyle = "green";
+        ctx.fillRect(200, 100, 450, 420);
+        ctx.fillStyle = "pink";
+        ctx.fillRect(100, 100, 100, 420);
+        ctx.fillStyle = "blue";
+        ctx.fillRect(25, 100, 75, 420);
+        ctx.fillStyle = "orange";
+        ctx.fillRect(0, 100, 30, 420);
+        ctx.stroke();
+	  
+		
+    </script>
+
+  </body>
+
+</html>
