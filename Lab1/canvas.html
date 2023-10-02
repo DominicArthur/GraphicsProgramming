@@ -16,8 +16,8 @@
   </head>
 
   <body>
-
-    <canvas id="canvasOne"></canvas>
+    <h1>Dominic Arthur</h1>
+    <canvas id="canvasOne" width="700" height="700"></canvas>
 
     <script type="text/javascript">
 		// Gets a handle to the element with id canvasOne.
@@ -31,19 +31,28 @@
         
 		// Create a filled rectangle 
 		ctx.beginPath();
-        ctx.fillText("Dom Arthur",100,10);       
-        ctx.fillStyle = "red";
-        ctx.fillRect(20, 20, 250, 120,0.5);
-        ctx.fillStyle = "green";
-        ctx.fillRect(200, 100, 450, 420);
+    ctx.fillText("Dom Arthur",100,10);       
+    ctx.fillStyle = "rgba(0, 255, 0 ,40%)";
+    ctx.fillRect(20, 20, 250, 120,0.5);
+    ctx.fillStyle = "rgba(255, 0, 0 ,40%)";;
+        ctx.fillRect(200, 100, 450, 120);
         ctx.fillStyle = "pink";
-        ctx.fillRect(100, 100, 100, 420);
+        ctx.fillRect(100, 100, 100, 120);
         ctx.fillStyle = "blue";
-        ctx.fillRect(25, 100, 75, 420);
+        ctx.fillRect(25, 100, 75, 120);
         ctx.fillStyle = "orange";
         ctx.fillRect(0, 100, 30, 420);
         ctx.stroke();
-	  
+        ctx.beginPath();
+        ctx.arc(300, 300, 50, 0, 2 * Math.PI);
+        ctx.fillStyle = "red";
+        ctx.fill();
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(300, 150, 50, 0, 2 * Math.PI);
+        ctx.fillStyle = "green";
+        ctx.fill();
+        ctx.stroke();
 		
     </script>
 
