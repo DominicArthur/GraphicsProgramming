@@ -83,10 +83,10 @@
         moveBall(){
           this.x += this.x_vel; //speed
           this.y += this.y_vel; 
-          this.angle1 += this.angle_vel;
+          /*this.angle1 += this.angle_vel;
           this.angle2 += this.angle_vel;
           this.angle3 += this.angle_vel;
-          this.angle4 += this.angle_vel;
+          this.angle4 += this.angle_vel;*/
           //code for hitting roof or floor
           if(this.y >= canvas.height - this.radius || this.y <= this.radius){
             console.log("Ball hit the roof or floor")//log tells me if it makes contact with either the roof or floor.
@@ -94,18 +94,18 @@
             this.angle_vel *= -1;
           }
           //code for hitting either side wall
-          if(this.x >= canvas.width - ths.radius || this.x <= this.radius){
+          if(this.x >= canvas.width - this.radius || this.x <= this.radius){
             console.log("Hit the wall")//log tells me the ball hit either wall
+            this.x_vel *= -1;
+            this.angle_vel *= -1;
           }
-          this.x_vel *= -1;
-          this.angle_vel *= -1;
       }
     }
       // A function to repeat every time the animation loops.
       function repeatme() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         b1.draw();
-        b1.move();
+        b1.moveBall();
         window.requestAnimationFrame(repeatme);
       }
       const b1 = new ball();
