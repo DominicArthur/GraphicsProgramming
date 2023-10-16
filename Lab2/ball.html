@@ -65,7 +65,20 @@
           var yl3 = (this.radius * Math.sin(this.angle3) + this.y);
           var xl4 = (this.radius * Math.cos(this.angle4) + this.x);
           var yl4 = (this.radius * Math.sin(this.angle4) + this.y);
-          //Making a line
+          //Making a line 
+          // Angle1
+          ctx.moveTo(this.x, this.y);
+          ctx.lineTo(xl1, yl1);
+          // Angle2
+          ctx.moveTo(this.x, this.y);
+          ctx.lineTo(xl2, yl2);
+          // Angle3
+          ctx.moveTo(this.x, this.y);
+          ctx.lineTo(xl3, yl3);
+          // Angle4
+          ctx.moveTo(this.x, this.y);
+          ctx.lineTo(xl4, yl4);
+          ctx.stroke();
         }
       }
       // A function to repeat every time the animation loops.
