@@ -9,15 +9,15 @@
 
     <style type="text/css">
 		canvas {
-			border: 1px solid grey; 
+			border: 2px solid rgb(140, 127, 255); 
 		}
     </style>
 
   </head>
 
   <body>
-	<h1> Dominic Arthur</h1>
-    <canvas id="canvas-for-ball"></canvas>
+	<h1>☻</h1>
+    <canvas id="canvas-for-ball" width="500px" height="500px"></canvas>
 
     <script type="text/javascript">
 		// Gets a handle to the element with id canvasOne.
@@ -32,7 +32,22 @@
 			// Just log the event to the console.
 			console.log(event);
 		});
+		//class for ball
+		class ball{
+			constructor(x,y,x_vel,y_vel,radius){
+				this.x=x||150;
+				this.y=y||150;
+				this.x_vel = x_vel||2;
+				this.y_vel = y_vel||2;
+				this.radius = radius||8;
+			}
+			move(){
 
+			}
+			draw(){
+
+			}
+		}
 		//keypresses with jQuery
 		$(document.body).on('keydown', function(e) {
 			console.log(e.which);
@@ -48,6 +63,7 @@
 				break;
 			}
 		});
+		
     </script>
 
   </body>
