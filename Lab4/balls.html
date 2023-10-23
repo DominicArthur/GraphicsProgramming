@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Canvas</title>
+
+    <style type="text/css">
+      body {
+          background-color: white;
+      }
+      canvas{
+        margin: 10px;
+        border: 5px solid rgb(0, 128, 111);
+        border-radius: 20px;
+    }
+    h1{
+        color: darkorchid;
+    }
+    </style>
+
+  </head>
+  <h1><i>Dominic Arthur</i></h1>
+  <body>
+    
+    
+
+    <canvas id="canvas-for-ball" width="800px" height="500px"></canvas>
+
+    <script type="text/javascript">
+
+
+      // Gets a handle to the element with id canvasOne.
+      var canvas = document.getElementById("canvas-for-ball");
+      // Get a 2D context for the canvas.
+      var ctx = canvas.getContext("2d");
+      
+      // The vertical location of the ball.
+      class ball{
+        constructor(x,y,x_vel,y_vel,radius,angle1,angle2,angle3,angle4,angle_vel){
+            this.x=x||50;
+            this.y=y||150;
+            this.x_vel=x_vel||2;
+            this.y_vel=y_vel||2;
+            this.radius=radius||30;
+            this.angle1 = angle1 || 0; // Start with an initial angle of 0
+            this.angle_vel = angle_vel || 0.05; // angular vel to control the speed of rotation
+            this.angle1=angle1||(Math.PI/4 * 1);
+            this.angle2=angle2||(Math.PI/4 * -3);
+            this.angle3=angle3||(Math.PI/4 * -1);
+            this.angle4=angle4||(Math.PI/4 * 3);
+            this.angle_vel=angle_vel||0.05;
+        }
+        draw(){
+          //making circle
+          ctx.beginPath();
+
+          // Calculates postion of the lines 
+          ctx. angle1 = this.angle;
+          ctx. angle2 = this.angle - Math.PI;
+          //Line placment
+          var xl1 = (this.radius * Math.cos(this.angle1) + this.x);
+          var yl1 = (this.radius * Math.cos(this.angle1) + this.y);
+          var xl2 = (this.radius * Math.cos(this.angle2) + this.x);
+          var yl2 = (this.radius * Math.cos(this.angle2) + this.y);
+
+          //Making the prohibition symbol 
+          ctx.arc(this.x,this.y,this.radius,0,2 * Math.PI);
+          ctx.strokeStyle = 'red';
+          ctx.stroke();
+
+          // Drawing the lines
+          ctx.lineWidth = 4; // Set the line width to 4 pixels
+          // Angle1
+          ctx.moveTo(this.x, this.y);
+          ctx.lineTo(xl1, yl1);
+          // Angle2
+          ctx.moveTo(this.x, this.y);
+          ctx.lineTo(xl2, yl2)
+          ctx.stroke();
+        }
+        moveBall(){
+          this.x += this.x_vel; //speed
+          this.y += this.y_vel; 
+          
+          // Updates the angle to make the circle and lines spin
+          this.angle += this.angle_vel; // Adjusts the vel
+          //code for hitting roof or floor
+          if(this.y >= canvas.height - this.radius || this.y <= this.radius){
+            console.log("Ball hit the roof or floor")//log tells me if it makes contact with either the roof or floor.
+            this.y_vel *= -1;
+            
+          }
+          //code for hitting either side wall
+          if(this.x >= canvas.width - this.radius || this.x <= this.radius){
+            console.log("Hit the wall")//log tells me the ball hit either wall
+            this.x_vel *= -1;
+          }
+      }
+    }
+    class secondBall {
+     constructor(x, y, x_vel, y_vel, radius, angle1, angle2, angle3, angle4, angle_vel) {
+    this.x = x || 750; // Initial x-coordinate
+    this.y = y || 250; // Initial y-coordinate
+    this.x_vel = x_vel || -2; // Initial x velocity
+    this.y_vel = y_vel || -2; // Initial y velocity
+    this.radius = radius || 20; // Radius of the ball
+    
+  }
+
+  draw() {
+    // Implement how to draw the second ball on the canvas
+    //making circle
+    ctx.beginPath();
+    ctx.arc(this.x,this.y,this.radius,0,2 * Math.PI);
+    ctx.strokeStyle = 'blue';
+    ctx.stroke();
+  }
+
+  moveBall()
+ {
+    this.x += this.x_vel; //speed
+    this.y += this.y_vel; 
+
+     //code for hitting roof or floor
+     if(this.y >= canvas.height - this.radius || this.y <= this.radius){
+            console.log("Ball hit the roof or floor")//log tells me if it makes contact with either the roof or floor.
+            this.y_vel *= -1;
+            this.angle_vel *= -1;
+          }
+          //code for hitting either side wall
+          if(this.x >= canvas.width - this.radius || this.x <= this.radius){
+            console.log("Hit the wall")//log tells me the ball hit either wall
+            this.x_vel *= -1;
+            this.angle_vel *= -1;
+          }
+      }
+    // Implement how the second ball moves and handles collisions
+  } 
+      //funcation to tell when two balls collide 
+      function collidingBalls(b1,b2)
+      {
+        // Calculate the distance between the centers of the two balls
+        const dx = b1.x - b2.x;
+        const dy = b1.y - b2.y;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        //Checks if distance is less than radius 
+        return distance < b1.radius + b2.radius;
+  }   
+
+      // Function to do collision
+     /* function ballsCollide(b1,b2)
+      {
+        if(collidingBalls(b1,b2))
+        {
+          // Swap velocities
+          const tempX_Vel = b1.x_vel;
+          const tempY_Vel = b1.y_vel;
+          b1.x_vel = b2.x_vel;
+          b1.y_vel = b2.y_vel;
+          b2.x_vel = tempX_Vel;
+          b2.y_vel = tempY_Vel;
+        }
+      }*/
+
+      // Handles all pairs of balls and collision
+      function handleCollision(b1,b2)
+      {
+        if(collidingBalls(b1,b2)){
+          // Swap velocities
+          const tempX_Vel = b1.x_vel;
+          const tempY_Vel = b1.y_vel;
+          b1.x_vel = b2.x_vel;
+          b1.y_vel = b2.y_vel;
+          b2.x_vel = tempX_Vel;
+          b2.y_vel = tempY_Vel;
+        }
+      }
+      // A function to repeat every time the animation loops.
+      function repeatme() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        b1.draw();
+        b2.draw();
+        b1.moveBall();
+        b2.moveBall();
+        handleCollision(b1,b2); // Checks for collisions and respond
+        window.requestAnimationFrame(repeatme);
+      }
+    
+      const b1 = new ball(100,100,2,2,30);//changes where the balls will spawn and the size
+      const b2 = new secondBall(450,450,-2,-2,30);
+      // Get the animation going.
+      repeatme();
+    </script>
+
+  </body>
+
+</html>

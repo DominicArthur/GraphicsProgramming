@@ -21,7 +21,7 @@
     </style>
 
   </head>
-
+  <h1>Dominic Arthur</h1>
   <body>
     
     
@@ -37,38 +37,78 @@
       var ctx = canvas.getContext("2d");
       
       // The vertical location of the ball.
-      var y = 10;
-      var yspeed = 5;
-      var x = 10;
-      var xspeed =5;
+      class ball{
+        constructor(x,y,x_vel,y_vel,radius,angle1,angle2,angle3,angle4,angle_vel){
+            this.x=x||50;
+            this.y=y||150;
+            this.x_vel=x_vel||2;
+            this.y_vel=y_vel||2;
+            this.radius=radius||30;
+            this.angle1=angle1||(Math.PI/4 * 1);
+            this.angle2=angle2||(Math.PI/4 * -3);
+            this.angle3=angle3||(Math.PI/4 * -1);
+            this.angle4=angle4||(Math.PI/4 * 3);
+            this.angle_vel=angle_vel||0.05;
+        }
+        draw(){
+          //making circle
+          ctx.beginPath();
+          ctx.arc(this.x,this.y,this.radius,0,2 * Math.PI);
+          ctx.strokeStyle = 'red';
+          ctx.stroke();
+          //Line placment
+          var xl1 = (this.radius * Math.cos(this.angle1) + this.x);
+          var yl1 = (this.radius * Math.cos(this.angle1) + this.y);
+          var xl2 = (this.radius * Math.cos(this.angle2) + this.x);
+          var yl2 = (this.radius * Math.cos(this.angle2) + this.y);
+          var xl3 = (this.radius * Math.cos(this.angle3) + this.x);
+          var yl3 = (this.radius * Math.sin(this.angle3) + this.y);
+          var xl4 = (this.radius * Math.cos(this.angle4) + this.x);
+          var yl4 = (this.radius * Math.sin(this.angle4) + this.y);
+          //Making a line 
+          // Angle1
+          ctx.moveTo(this.x, this.y);
+          ctx.lineTo(xl1, yl1);
+          // Angle2
+          ctx.moveTo(this.x, this.y);
+          ctx.lineTo(xl2, yl2);
+          // Angle3
+          ctx.moveTo(this.x, this.y);
+          ctx.lineTo(xl3, yl3);
+          // Angle4
+          ctx.moveTo(this.x, this.y);
+          ctx.lineTo(xl4, yl4);
+          ctx.stroke();
+        }
+        moveBall(){
+          this.x += this.x_vel; //speed
+          this.y += this.y_vel; 
+          /*this.angle1 += this.angle_vel;
+          this.angle2 += this.angle_vel;
+          this.angle3 += this.angle_vel;
+          this.angle4 += this.angle_vel;*/
+          //code for hitting roof or floor
+          if(this.y >= canvas.height - this.radius || this.y <= this.radius){
+            console.log("Ball hit the roof or floor")//log tells me if it makes contact with either the roof or floor.
+            this.y_vel *= -1;
+            this.angle_vel *= -1;
+          }
+          //code for hitting either side wall
+          if(this.x >= canvas.width - this.radius || this.x <= this.radius){
+            console.log("Hit the wall")//log tells me the ball hit either wall
+            this.x_vel *= -1;
+            this.angle_vel *= -1;
+          }
+      }
+    }
       // A function to repeat every time the animation loops.
       function repeatme() {
-        // Draw the ball (stroked, not filled).
-        ctx.beginPath();
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.arc(x, y, 10, 0, 2 * Math.PI);
-        ctx.stroke();
-        // Update the y location.
-        y += yspeed;
-        if(y >= canvas.height){
-            console.log("Hit the bottom of the frame");
-            yspeed = -5;
-        }
-        else if(y <= 10){
-            console.log("Hit the top of the frame");
-            yspeed += 10;
-        }
-        x += xspeed;
-        if(x >= canvas.width){
-            console.log("Hit the side of the frame");
-            xspeed = -5;
-        }
-        else if(x <= 0){
-            xspeed += 10;
-        }
+        b1.draw();
+        b1.moveBall();
         window.requestAnimationFrame(repeatme);
       }
-      
+      const b1 = new ball();
       // Get the animation going.
       repeatme();
     </script>
