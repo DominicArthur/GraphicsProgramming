@@ -48,7 +48,7 @@
 
             // Creating x and y scales
             var y = d3.scaleLinear()
-                .domain([320, 400]) // Adjust the domain to match your custom ticks
+                .domain([300, d3.max(data, function(d) { return d["Interpolated"]; })]) // Adjust the domain to match your custom ticks
                 .range([height, 0]);  // y-axis values go from the bottom to the top of the SVG
 
             // Parsing the date using D3's timeParse function
