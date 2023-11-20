@@ -40,8 +40,20 @@
             .domain(d3.extent(data, function (d) { return pDate(d["Date"]); })) // Mapping the Date values to the x-axis
             .range([0, width]); // x-axis values go from left to right of the SVG
 
-            // axis code
-            
+           // Creating x-axis and y-axis
+             xAxis = d3.axisBottom(x).ticks(3); // x-axis with 3 ticks
+             yAxis = d3.axisLeft(y).ticks(3); // y-axis with 3 ticks
+
+            // Creating a line function for the main data
+var line = d3.line()
+    .x(function (d) { return x(parseDate(d["Date"])); }) // Mapping x-values using the parsed date
+    .y(function (d) { return y(d["Interpolated"]); }); // Mapping y-values for the "Interpolated" data
+
+            // Creating a line function for the trend data
+var tLine = d3.line()
+    .x(function (d) { return x(parseDate(d["Date"])); }) // Mapping x-values using the parsed date
+    .y(function (d) { return y(d["Trend"]); }); // Mapping y-values for the "Trend" data
+
         };
 </script>
 </body>
