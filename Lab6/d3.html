@@ -12,8 +12,7 @@
     <h1>Dominic Arthur</h1>
 
     <script type="text/javascript"> 
-    // AJAX request to fetch CO2 data
-        
+        // AJAX request to fetch CO2 data
         $.getJSON("https://pkgstore.datahub.io/core/co2-ppm/co2-mm-mlo_json/data/aed7eb0d19cbcd90790525d40728b0a8/co2-mm-mlo_json.json", function (data) {
             console.log(data);
             // Call the function to plot CO2 data
@@ -21,40 +20,67 @@
         });
 
         function plotCO2Data(data) {
-            // D3.js code for plotting CO2 data goes here
             // Setting up margins and dimensions for the chart
-            var margin = { top: 50, right: 50, bottom: 50, left: 50},
+            var margin = { top: 50, right: 50, bottom: 50, left: 50 },
                 width = 900 - margin.left - margin.right,
                 height = 670 - margin.top - margin.bottom;
 
             // Creating x and y scales
             var y = d3.scaleLinear()
-                .domain(d3.extent(data, function (d) { return d["interpolated"]}))
+                .domain(d3.extent(data, function (d) { return d["interpolated"]; }))
                 .range([height, 0]);  // y-axis values go from the bottom to the top of the SVG
 
             // Parsing the date using D3's timeParse function
             var pDate = d3.timeParse("%Y-%d-%m");
-            
+
             // Creating x scale as a time scale
             var x = d3.scaleTime()
-            .domain(d3.extent(data, function (d) { return pDate(d["Date"]); })) // Mapping the Date values to the x-axis
-            .range([0, width]); // x-axis values go from left to right of the SVG
+                .domain(d3.extent(data, function (d) { return pDate(d["Date"]); })) // Mapping the Date values to the x-axis
+                .range([0, width]); // x-axis values go from left to right of the SVG
 
-           // Creating x-axis and y-axis
-             xAxis = d3.axisBottom(x).ticks(3); // x-axis with 3 ticks
-             yAxis = d3.axisLeft(y).ticks(3); // y-axis with 3 ticks
+            // Creating x-axis and y-axis
+            var xAxis = d3.axisBottom(x).ticks(3); // x-axis with 3 ticks
+            var yAxis = d3.axisLeft(y).ticks(3); // y-axis with 3 ticks
 
             // Creating a line function for the main data
-var line = d3.line()
-    .x(function (d) { return x(parseDate(d["Date"])); }) // Mapping x-values using the parsed date
-    .y(function (d) { return y(d["Interpolated"]); }); // Mapping y-values for the "Interpolated" data
+            var line = d3.line()
+                .x(function (d) { return x(pDate(d["Date"])); }) // Mapping x-values using the parsed date
+                .y(function (d) { return y(d["Interpolated"]); }); // Mapping y-values for the "Interpolated" data
 
             // Creating a line function for the trend data
-var tLine = d3.line()
-    .x(function (d) { return x(parseDate(d["Date"])); }) // Mapping x-values using the parsed date
-    .y(function (d) { return y(d["Trend"]); }); // Mapping y-values for the "Trend" data
+            var tLine = d3.line()
+                .x(function (d) { return x(pDate(d["Date"])); }) // Mapping x-values using the parsed date
+                .y(function (d) { return y(d["Trend"]); }); // Mapping y-values for the "Trend" data
 
+            var svg = d3.select("body").append("svg")
+                .attr("width", width + margin.left + margin.right)
+                .attr("height", height + margin.top + margin.bottom)
+                .append("g")
+                .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+            // Append the x-axis
+            svg.append("g")
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis);
+
+            // Append the y-axis
+            svg.append("g")
+                .attr("class", "y axis")
+                .call(yAxis);
+
+            // Append the main data line
+            svg.append("path")
+                .data([data])
+                .attr("class", "line")
+                .attr("d", line);
+
+            // Append the trend data line
+            svg.append("path")
+                .data([data])
+                .attr("class", "trend-line")
+                .attr("d", tLine);
         };
-</script>
+    </script>
 </body>
 </html>
