@@ -2,6 +2,27 @@
 <html>
 <head>
     <title>D3.js Demo</title>
+    <style>
+        .line {
+            fill: none;
+            stroke: red; /* Change color to red */
+            stroke-width: 2px;
+        }
+    
+        .trend-line {
+            fill: none;
+            stroke: blue; /* Change color to blue or your preferred color */
+            stroke-width: 2px;
+        }
+    
+        .axis path,
+        .axis line {
+            fill: none;
+            stroke: black;
+            shape-rendering: crispEdges;
+        }
+    </style>
+    
     <meta charset="UTF-8">
     <!-- Importing the JS CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.158.0/three.min.js"></script>
@@ -51,6 +72,7 @@
             var tLine = d3.line()
                 .x(function (d) { return x(pDate(d["Date"])); }) // Mapping x-values using the parsed date
                 .y(function (d) { return y(d["Trend"]); }); // Mapping y-values for the "Trend" data
+
 
             var svg = d3.select("body").append("svg")
                 .attr("width", width + margin.left + margin.right)
