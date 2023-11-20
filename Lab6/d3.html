@@ -22,14 +22,26 @@
 
         function plotCO2Data(data) {
             // D3.js code for plotting CO2 data goes here
+            // Setting up margins and dimensions for the chart
             var margin = { top: 50, right: 50, bottom: 50, left: 50},
                 width = 900 - margin.left - margin.right,
                 height = 670 - margin.top - margin.bottom;
 
             // Creating x and y scales
-            var y = d3.scaleLiner()
+            var y = d3.scaleLinear()
                 .domain(d3.extent(data, function (d) { return d["interpolated"]}))
-                .range([height, 0]);
+                .range([height, 0]);  // y-axis values go from the bottom to the top of the SVG
+
+            // Parsing the date using D3's timeParse function
+            var pDate = d3.timeParse("%Y-%d-%m");
+            
+            // Creating x scale as a time scale
+            var x = d3.scaleTime()
+            .domain(d3.extent(data, function (d) { return pDate(d["Date"]); })) // Mapping the Date values to the x-axis
+            .range([0, width]); // x-axis values go from left to right of the SVG
+
+            // axis code
+            
         };
 </script>
 </body>
