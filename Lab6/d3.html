@@ -1,33 +1,27 @@
 <!DOCTYPE html>
-
- <html>
-    <!-- importing the JS CDN-->
+<html>
+<head>
+    <title>D3.js Demo</title>
+    <meta charset="UTF-8">
+    <!-- Importing the JS CDN -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/0.158.0/three.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.1.0.min.js"></script>
-
     <script src="https://d3js.org/d3.v5.min.js"></script>
+    <!-- Your JavaScript code should be placed here -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $.getJSON("https://pkgstore.datahub.io/core/co2-ppm/co2-mm-mlo_json/data/aed7eb0d19cbcd90790525d40728b0a8/co2-mm-mlo_json.json", function (data) {
+                console.log(data);
+                plotCO2Data(data);
+            });
 
-    <head>
-     <title>D3.js Demo</title>
-     <meta charset="UTF-8">
-
-     <style type="text/css">
-     body {
-          background-color: white;
-      }
-      canvas{
-        margin: 10px;
-        border: 5px solid rgb(0, 128, 111);
-        border-radius: 20px;
-    }
-    h1{
-        color: darkorchid;
-    }
-     </style>
-
- </head>
- <h1>Dominic Arthur</h1>
- <body>
-        <script type="text/javascript"></script>
- </body>
+            function plotCO2Data(data) {
+                // Your D3.js code for plotting CO2 data goes here
+            }
+        });
+    </script>
+</head>
+<body>
+    <h1>Dominic Arthur</h1>
+</body>
 </html>
